@@ -1,0 +1,154 @@
+
+
+    $firstColor: rgb(31, 231, 231);
+    $secondColor:rgb(9,183,183);
+    $thirdColor:rgb(5,130,130);
+    $forthColor:rgb(1,86,86);
+    $textColor: #333;
+    $whiteColor: #fff;
+
+@mixin set{
+    position: fixed;
+    top: 3rem;
+    left: 3rem;
+
+}
+*,*::after,*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+html{
+    font-size: 62,5%;
+    box-sizing: border-box;
+}
+body{
+    background-color: purple;
+    font-family: sans-serif;
+    font-weight: bold;
+    line-height: 1.6;
+    height: 100vh;
+    overflow: hidden;
+    font-size: 2rem;
+}
+.nav-box{
+        display: none;
+        @include set;    
+
+        &:checked~ .nav-label .nav-span{
+            background-color: transparent;
+        }
+        &:checked ~ .nav-label .nav-span::before{
+            transform: rotate(45deg) translate(10px, 10px);
+            transform-origin: center;
+        }
+        &:checked ~ .nav-label .nav-span::after{
+            transform: rotate(-45deg) translate(11px, -13px);
+            transform-origin: center;
+        }
+        &:checked ~ .nav-back{
+            transform: scale(10);
+        }
+        &:not(:checked) ~ .nav-label:hover .nav-span::before{
+            top: -1.2rem;
+        }
+        &:not(:checked) ~ .nav-label:hover .nav-span::after{
+            bottom: -1.2rem;
+        }
+        &:checked ~ .nav-list{
+            padding: 2.9rem 0 0;
+            width: 30rem;
+            height: 30rem;
+        }
+}
+
+.nav-label{
+    @include set;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $firstColor;
+    box-shadow: 0 0 1rem rgba($firstColor, .8),
+                0 0 2rem rgba($firstColor, .5),
+                0 0 3rem rgba($secondColor, .8);
+    cursor: pointer;
+    z-index: 10;
+}
+.nav-span{
+    width: 3.5rem;
+    height: 0.5rem;
+    background-color: $whiteColor;
+    display: inline-block;
+    border-radius: 10%;
+    position: relative;
+
+    &::before,
+    &::after{
+        content: "";
+        width: 3.5rem;
+        height: 0.5rem;
+        background-color: $whiteColor;
+        display: inline-block;
+        border-radius: 10%;
+        position: absolute;
+        transition: all 0.3331s;
+    }
+    &::before{
+        top: -1rem;
+    }
+
+
+    &::after{
+        bottom: -1rem;
+    }
+}
+
+
+.nav-back{
+    @include set;
+    width: 6rem;
+    height: 6rem;
+    background: radial-gradient(circle,
+                                $firstColor 15%,
+                                rgba($forthColor,.8) 10%,
+                                rgba($forthColor,.8) 25%,
+                                rgba($thirdColor,.6) 25%,
+                                rgba($thirdColor,.6) 40%,
+                                rgba($secondColor,.4) 40%,
+                                rgba($secondColor,.4) 55%,
+                                rgba($firstColor,.2) 55%,
+                                rgba($firstColor,.00001) 70%
+                                ) ;
+    z-index: 8;
+    transition: all 1s cubic-bezier(0.17,0.67,0.58 ,1.7);
+
+}
+
+.nav-list{
+    @include set;
+    list-style: none;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    overflow: hidden;
+    transform: rotate(-45deg);
+    z-index: 9;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.17,0.67,0.58 ,1.7);
+}
+
+.nav-item{
+    padding: 1.4rem;
+}
+.nav-link{
+    text-decoration: none;
+    color: $textColor;
+    transition-delay: 2s;
+    transition: all 0.2s;
+    &:hover{
+        color: $firstColor;
+    }
+}
